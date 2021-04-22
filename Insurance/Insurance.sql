@@ -120,3 +120,4 @@ select * from participated;
 
 select count(*) from accident where year(accident_date)=2008;
 select count(*) from participated where reg_num in ( select reg_num from car where model="Accord");
+select * from accident;
