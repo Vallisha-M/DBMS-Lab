@@ -89,5 +89,5 @@ select * from bank_customer;
 select * from depositer;
 select * from loan;
 
-
-
+delete from bank_account where branch_name in (select branch_name from branch where branch_city = 'Bombay');
+select * from bank_account;
