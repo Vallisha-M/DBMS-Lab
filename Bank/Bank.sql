@@ -94,5 +94,7 @@ delete from bank_account where branch_name in (select branch_name from branch wh
 select distinct c.customer_name from bank_customer c,bank_account b where exists(select d.customer_name,count(d.customer_name) from depositer d,bank_account ba where ba.accno = d.accno and 
 c.customer_name = d.customer_name and ba.branch_name = 'SBI_ResidencyRoad' group by d.customer_name having count(d.customer_name)>=2);
 
+select bc.customer_name from bank_customer bc where not exists ( select branch_name from branch br where br.branch_city = 'Delhi' and not exists ( select ba.branch_name from depositer dep,bank_account ba 
+where dep.accno = ba.accno and bc.customer_name = dep.customer_name));
 
-
+select distinct d.customer_name from depositer d where exists( select * from bank_account ba where ba.accno=d.accno and exists (select * from branch b where b.branch_name = ba.branch_name and b.branch_city='Delhi'));
