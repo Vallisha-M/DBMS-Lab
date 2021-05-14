@@ -52,10 +52,10 @@ select * from parts;
 select * from suppliers;
 select * from catalog;
 
-#Query 1#
+-- Query 1
 select distinct p.pname from parts p, catalog c where p.pid = c.pid;
 
-#Query 2#
+-- Query 2
 
 select distinct sname from suppliers where 
 sid = 
@@ -70,23 +70,21 @@ p.pid = c.pid and p.color='Red'));
 
 -- Query 4
 
- select P.pname from parts P, catalog C, suppliers S 
- where P.pid = C.pid and C.sid = S.sid and S.sname = 'Acme Widget'
- and not exists (select * from catalog C1, suppliers S1
- where P.pid = C1.pid and C1.sid = S1.sid and S1.sname <> 'Acme Widget');
-
--- Query 5
-select distinct C.sid from catalog C
-where C.cost > ( select avg (C1.cost)
-from catalog C1
-where C1.pid = C.pid );
-
+select p.pname from catalog c, suppliers s , parts p where c.pid in(
+select pid from catalog group by pid having count(sid) = 1)
+ and c.sid = s.sid and s.sname = 'Acme Widget'
+ and p.pid = c.pid;
+ 
+ -- Query 5
+select c.sid from catalog c where c.cost > (
+select avg(cost) from catalog where pid = c.pid and pid in
+(select pid from catalog) group by pid);
 
 -- Query 6
-select P.pid, S.sname
-from parts P, suppliers S, catalog C
-where C.pid = P.pid
-and C.sid = S.sid
-and C.cost = (select max(C1.cost)
-from catalog C1
-where C1.pid = P.pid);
+select s.sname, p.pname from parts p, suppliers s where exists(
+select c.sid, c.pid from catalog c where s.sid = c.sid and p.pid = c.pid and c.cost = (
+select max(cost) from catalog where pid = c.pid and pid in
+(select pid from catalog) group by pid));
+
+
+ 
