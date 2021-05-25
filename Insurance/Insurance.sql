@@ -25,7 +25,7 @@ create table accident(
 	location varchar(20),
 	primary key(report_num)
 );
-
+desc accident;
 create table owns(
 	driver_id varchar(10),
 	reg_num varchar(10),
@@ -64,6 +64,7 @@ insert into car values('KA041122','MX-5',2019);
 insert into car values('KA051133','Indica',2010);
 insert into car values('KA061144','Prius',2015);
 insert into car values('KA071155','Camry',2020);
+insert into car values('KA01010', 'Accord', 2002);
 commit;
 
 select * from car;
@@ -73,6 +74,7 @@ insert into accident values(122,'2020-02-02','Dalhousie Road');
 insert into accident values(133,'2020-03-03','Henry Road');
 insert into accident values(144,'2020-04-04','Beehive Road');
 insert into accident values(155,'2020-05-05','Orange Street');
+insert into accident values(200, '2008-12-01', 'Pinto Road');
 commit;
 
 select * from accident;
@@ -82,6 +84,8 @@ insert into owns values ('A02','KA041122');
 insert into owns values ('A03','KA051133');
 insert into owns values ('A04','KA061144');
 insert into owns values ('A05','KA071155');
+insert into owns values('A02', 'KA01010');
+
 commit;
 
 select * from owns;
@@ -91,32 +95,26 @@ insert into participated values ('A02','KA041122',122, 20000);
 insert into participated values ('A03','KA051133',133, 30000);
 insert into participated values ('A04','KA061144',144, 40000);
 insert into participated values ('A05','KA071155',155, 50000);
+
+insert into participated values('A02', 'KA01010', 200, 500);
 commit;
 
 select * from participated;
 
+-- Query 3a
 update participated 
 set damage_amount = 2500
 where reg_num='KA031111';
 
 select * from participated;
-
+-- Query 3b
 insert into accident values(101,'2020-12-01','Xavier Road');
 insert into participated values('A01','KA031111',101, 1001);
 commit;
 select * from accident;
 select * from participated;
 
-insert into car values('KA01010', 'Accord', 2002);
-insert into owns values('A02', 'KA01010');
-insert into accident values(200, '2008-12-01', 'Pinto Road');
-insert into participated values('A02', 'KA01010', 200, 500);
-commit;
-
-select * from car;
-select * from owns;
-select * from accident;
-select * from participated;
-
+-- Query 4
 select count(*) from accident where year(accident_date)=2008;
+-- Query 5
 select count(*) from participated where reg_num in ( select reg_num from car where model="Accord");

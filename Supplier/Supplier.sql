@@ -7,14 +7,14 @@ create table suppliers(
 	city varchar(15),
     primary key (sid)
 );
-
+desc suppliers;
 create table parts (
 	pid int,
     pname varchar(15),
     color varchar(10),
     primary key (pid)
 );
-
+desc parts;
 create table catalog(
 	sid int,
 	pid int,
@@ -23,7 +23,7 @@ create table catalog(
     foreign key (pid) references parts(pid),
     foreign key (sid) references suppliers(sid)
 );
-
+desc catalog;
 insert into suppliers values (10001, 'Acme Widget', 'Bangalore');
 insert into suppliers values (10002, 'Johns', 'Kolkata');
 insert into suppliers values (10003, 'Vimal', 'Mumbai');
