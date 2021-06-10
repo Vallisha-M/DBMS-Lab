@@ -118,4 +118,11 @@ select card_no from book_lending where year(date_out) >17 and month(date_out)<7 
 
 -- Query 3
 
+delete from book where book_id = 3;
+select * from book;
+select * from book_authors;
+select * from book_copies;
+select * from book_lending;
+
+-- Query 4
 
