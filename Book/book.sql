@@ -125,4 +125,16 @@ select * from book_copies;
 select * from book_lending;
 
 -- Query 4
+select * from book order by substring(pub_year, 4, 4);
+-- select b1.book_id, b1.title, b1.pub_year
+-- from book b1
+-- inner join book b2 on substring(b1.pub_year, 4, 4) = substring(b2.pub_year, 4, 4) and b1.book_id <> b2.book_id;
 
+create view q4_view as select pub_year from book; 
+select * from q4_view;
+
+-- Query 5
+
+create view q5_view as select b.book_id, b.title, bc.no_of_copies from book b,
+book_copies bc where b.book_id = bc.book_id;
+select * from q5_view;
