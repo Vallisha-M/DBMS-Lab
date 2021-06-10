@@ -104,10 +104,18 @@ insert into book_lending values ('01-01-17','01-06-17', 1, 10, 101);
 insert into book_lending values ('11-01-17','11-03-17', 3, 14, 101); 
 insert into book_lending values ('21-02-17','21-04-17', 2, 13, 101); 
 insert into book_lending values ('15-03-17','15-07-17', 4, 11, 101); 
-insert into book_lending values ('12-04-17','12-05-17', 1, 11, 104); 
+insert into book_lending values ('12-08-17','12-08-17', 1, 11, 104); 
 select * from book_lending;
 
 -- Query 1
 
 select b.book_id, b.title, b.pub_year, b.publisher_name, bc.no_of_copies, ba.author_name, lb.branch_name from book b, book_authors ba, 
 library_branch lb, book_copies bc where b.book_id = ba.book_id and b.book_id = bc.book_id and lb.branch_id = bc.branch_id;
+
+-- Query 2
+
+select card_no from book_lending where year(date_out) >17 and month(date_out)<7 group by card_no having count(card_no) >2 ;
+
+-- Query 3
+
+
